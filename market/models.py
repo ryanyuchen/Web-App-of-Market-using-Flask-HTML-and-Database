@@ -15,12 +15,14 @@ class User(db.Model, UserMixin):
     budget = db.Column(db.Integer(), nullable=False, default=1000)
     items = db.relationship('Item', backref='owned_user', lazy=True) # db.realtionsip and lazy=True to get all the items in one shot
 
-    @property # unique for each instance
+    # unique for each instance
+    @property 
+    # to show 100,000 if length >= 4, show in line 39 in base.html
     def prettier_budget(self):
         if len(str(self.budget)) >= 4:
-            return f'{str(self.budget)[:-3]},{str(self.budget)[-3:]}$'
+            return f'${str(self.budget)[:-3]},{str(self.budget)[-3:]}'
         else:
-            return f"{self.budget}$"
+            return f"${self.budget}"
 
     @property
     def password(self):
