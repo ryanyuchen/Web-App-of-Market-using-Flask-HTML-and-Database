@@ -17,8 +17,8 @@ def market_page():
     selling_form = SellItemForm()
     if request.method == "POST":
         #Purchase Item Logic
-        purchased_item = request.form.get('purchased_item')
-        p_item_object = Item.query.filter_by(name=purchased_item).first()
+        purchased_item = request.form.get('purchased_item') # 'purchased_item' match the id in line 62 in items_modals.html
+        p_item_object = Item.query.filter_by(name=purchased_item).first() # get purchased item
         if p_item_object:
             if current_user.can_purchase(p_item_object):
                 p_item_object.buy(current_user)
