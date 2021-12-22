@@ -7,8 +7,8 @@
 <body class="text-center">
     <div class="container">
         <form method="POST" class="form-register" style="color:white">
+            <!-- to protect db from attach -->
             {{ form.hidden_tag() }}
-            <img class="mb-4" src="https://res.cloudinary.com/jimshapedcoding/image/upload/v1597332609/android-icon-192x192_ove2a7.png" alt="">
             <h1 class="h3 mb-3 font-weight-normal">
                 Please Create your Account
             </h1>
@@ -32,6 +32,7 @@
                <a class="btn btn-sm btn-secondary" href="{{ url_for('login_page') }}">Login</a>
             </div>
 
+            <!-- display submit button -->
             {{ form.submit(class="btn btn-lg btn-block btn-primary") }}
 
         </form>

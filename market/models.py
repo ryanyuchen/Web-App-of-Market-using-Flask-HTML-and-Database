@@ -12,7 +12,7 @@ class User(db.Model, UserMixin):
     email_address = db.Column(db.String(length=50), nullable=False, unique=True)
     password_hash = db.Column(db.String(length=60), nullable=False)
     budget = db.Column(db.Integer(), nullable=False, default=1000)
-    items = db.relationship('Item', backref='owned_user', lazy=True)
+    items = db.relationship('Item', backref='owned_user', lazy=True) # db.realtionsip and lazy=True to get all the items in one shot
 
     @property
     def prettier_budget(self):
@@ -57,3 +57,34 @@ class Item(db.Model):
         self.owner = None
         user.budget += self.price
         db.session.commit()
+
+'''
+To create the db
+1) in python file:
+
+from flask_sqlalchemy import SQLAlchemy
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///market.db'
+db = SQLAlchemy(app)
+
+class Item(db.Model):
+    id = db.Column(db.Integer(), primary_key=True)
+    name = db.Column(db.String(length=30), nullable=False, unique=True)
+    price = db.Column(db.Integer(), nullable=False)
+    barcode = db.Column(db.String(length=12), nullable=False, unique=True)
+    description = db.Column(db.String(length=1024), nullable=False, unique=True)
+
+    def __repr__(self):
+        return f'Item {self.name}'   # return the default of Item with name
+
+2) in shell:
+
+python
+from market.models import db
+db.create_all()
+from market import Item
+item1 = Item(name="", price=""....)
+db.session.add(item1)
+db.session.commit()
+Item.query.all()
+'''
