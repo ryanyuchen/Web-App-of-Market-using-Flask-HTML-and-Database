@@ -5,8 +5,10 @@ from market.models import User
 
 
 class RegisterForm(FlaskForm):
+    # FlaskForm will find field name match the part after "validate_"
     def validate_username(self, username_to_check):
-        user = User.query.filter_by(username=username_to_check.data).first()
+        # find username_to_check in the database
+        user = User.query.filter_by(username=username_to_check.data).first() # .data is the data of queried from db
         if user:
             raise ValidationError('Username already exists! Please try a different username')
 
