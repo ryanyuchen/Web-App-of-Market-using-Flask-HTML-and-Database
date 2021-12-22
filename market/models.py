@@ -2,6 +2,7 @@ from market import db, login_manager
 from market import bcrypt
 from flask_login import UserMixin
 
+# Reference: https://flask-login.readthedocs.io/en/latest/#how-it-works
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
@@ -14,7 +15,7 @@ class User(db.Model, UserMixin):
     budget = db.Column(db.Integer(), nullable=False, default=1000)
     items = db.relationship('Item', backref='owned_user', lazy=True) # db.realtionsip and lazy=True to get all the items in one shot
 
-    @property
+    @property # unique for each instance
     def prettier_budget(self):
         if len(str(self.budget)) >= 4:
             return f'{str(self.budget)[:-3]},{str(self.budget)[-3:]}$'
@@ -25,7 +26,7 @@ class User(db.Model, UserMixin):
     def password(self):
         return self.password
 
-    @password.setter
+    @password.setter # convert plain text password to hash
     def password(self, plain_text_password):
         self.password_hash = bcrypt.generate_password_hash(plain_text_password).decode('utf-8')
 

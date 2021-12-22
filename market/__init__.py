@@ -4,7 +4,7 @@ can be imported as "from market import db" in run.py
 '''
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from flask_bcrypt import Bcrypt
+from flask_bcrypt import Bcrypt # store password as hash password
 from flask_login import LoginManager
 
 app = Flask(__name__)

@@ -49,7 +49,7 @@ def register_page():
     if form.validate_on_submit():
         user_to_create = User(username=form.username.data,
                               email_address=form.email_address.data,
-                              password=form.password1.data)
+                              password=form.password1.data) # use password not password_hash in models.py
         db.session.add(user_to_create)
         db.session.commit()
         login_user(user_to_create)
@@ -67,6 +67,7 @@ def login_page():
     form = LoginForm()
     if form.validate_on_submit():
         attempted_user = User.query.filter_by(username=form.username.data).first()
+        # .check_password_correction is line 32 in models.py
         if attempted_user and attempted_user.check_password_correction(
                 attempted_password=form.password.data
         ):
