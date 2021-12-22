@@ -13,7 +13,9 @@ app.config['SECRET_KEY'] = 'ec9439cfc6c796ae2029594d'
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
+# if is not logged in, go to login route "login_page" in routes.py
 login_manager.login_view = "login_page"
+# show the message in background color of blue (category of "info")
 login_manager.login_message_category = "info"
 
 # import routes

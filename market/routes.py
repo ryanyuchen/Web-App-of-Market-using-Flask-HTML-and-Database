@@ -52,6 +52,7 @@ def register_page():
                               password=form.password1.data) # use password not password_hash in models.py
         db.session.add(user_to_create)
         db.session.commit()
+        # create a login_user and show the message when register successfully
         login_user(user_to_create)
         flash(f"Account created successfully! You are now logged in as {user_to_create.username}", category='success')
         return redirect(url_for('market_page'))
